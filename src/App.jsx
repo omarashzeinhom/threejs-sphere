@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import gsap from "gsap";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import "./App.css";
@@ -12,14 +13,21 @@ function App() {
   const scene = new THREE.Scene();
 
   // Geometry
-  const geometry = new THREE.SphereGeometry(5, 64, 65);
+  const geometry = new THREE.SphereGeometry(3, 64, 64);
   // Color
-  const material = new THREE.MeshBasicMaterial({ color: 0xbc1cec });
+  const material = new THREE.MeshStandardMaterial({ color: 0xFF9900, 
+  roughness: 0.3, });
   // Mesh
   const mesh = new THREE.Mesh(geometry, material);
 
   scene.add(mesh);
 
+
+  // LIGHT
+  const light = new THREE.PointLight(0xffffff, 1, 100);
+  light.position.set(0, 10, 10);
+  light.intensity = 1.5;
+  scene.add(light);
   //2. Setting up a Camera
 
   const camera = new THREE.PerspectiveCamera(
@@ -30,11 +38,6 @@ function App() {
   );
   camera.position.z = 20;
   scene.add(camera);
-
-  // LIGHT
-  const light = new THREE.PointLight(0xffffff, 1, 100);
-  light.position.set(0, 10, 10);
-  scene.add(light);
 
   // Renderer
   const canvas = document.querySelector(".webgl");
@@ -71,19 +74,32 @@ function App() {
   };
   loop();
 
-  return (
-    <>
-      <nav>
-        <a href="/">Sphere</a>
+  // TimeLine Magic
 
-        <ul>
-          <li>Explore</li>
-          <li>Create</li>
-        </ul>
-      </nav>
-      <h1 className="title">Give it A Spin</h1>
-    </>
-  );
+  const tl = gsap.timeline({ defaults: { duration: 1 } });
+  tl.fromTo(mesh.scale, { z: 0, x: 0, y: 0 }, { z: 1, x: 1, y: 1 });
+  tl.fromTo("nav", { y: "-100%" }, { y: "0%" });
+  tl.fromTo(".title", { opacity: 0 }, { opacity: 1 });
+
+  // Mouse Animation Color
+  let mouseDown = false;
+  let rgb = [12, 25, 27];
+  console.log(rgb);
+  window.addEventListenere("mousedown", () => (mouseDown = true));
+  window.addEventListenere("mouseup", () => (mouseDown = false));
+
+  window.addEventListener("mousemove", (e) => {
+    if (mouseDown) {
+      rgb = [
+        Math.round((e.pageX / sizes.width) * 255),
+        Math.round((e.pageY / sizes.height) * 255),
+        150,
+      ];
+      let newColor = new THREE.Color(`rgb${rgb.join(",")}`);
+      gsap.to(mesh.material.color, {r: newColor.r, g: newColor.g, b: newColor.b});
+    }
+  });
+  return <></>;
 }
 
 export default App;

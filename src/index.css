@@ -20,9 +20,10 @@ nav {
     color: white;
     z-index: 2;
     position: relative;
-    padding: 3rem 7rem;
+    padding: 4rem 8rem;
     justify-content: space-between;
 }
+
 nav a {
     text-decoration: none;
     color: wheat;
@@ -32,10 +33,10 @@ nav a {
 nav ul {
     list-style: none;
     display: flex;
-    gap: 3rem;
+    gap: 4rem;
 }
 
-.title{
+.title {
     color: white;
     z-index: 2;
     position: absolute;
