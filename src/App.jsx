@@ -13,25 +13,26 @@ function App() {
   const scene = new THREE.Scene();
 
   // Geometry
-  const geometry = new THREE.TorusGeometry(14 ,3, 30, 50,7);
+  const geometry = new THREE.TorusGeometry(7, 3, 15, 50, 7);
   // Color
-  const material = new THREE.MeshStandardMaterial({ color: 0xFFFFF, 
-  roughness: 0.3, });
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xfffff,
+    roughness: 0.4,
+  });
   // Mesh
   const mesh = new THREE.Mesh(geometry, material);
 
   scene.add(mesh);
 
-
   // LIGHT
   const light = new THREE.PointLight(0xffffff, 1, 100);
-  light.position.set(1, 50, 52);
+  light.position.set(1, 25, );
   light.intensity = 1.5;
   scene.add(light);
   //2. Setting up a Camera
 
   const camera = new THREE.PerspectiveCamera(
-    45,
+    47,
     sizes.width / sizes.height,
     0.1,
     100
@@ -96,7 +97,11 @@ function App() {
         150,
       ];
       let newColor = new THREE.Color(`rgb${rgb.join(",")}`);
-      gsap.to(mesh.material.color, {r: newColor.r, g: newColor.g, b: newColor.b});
+      gsap.to(mesh.material.color, {
+        r: newColor.r,
+        g: newColor.g,
+        b: newColor.b,
+      });
     }
   });
   return <></>;
