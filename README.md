@@ -10,3 +10,7 @@
 ```sh
 yarn add three gsap
 ```
+
+### References
+
+1. [TorusKnotGeometry](https://threejs.org/docs/#api/en/geometries/TorusKnotGeometry)
