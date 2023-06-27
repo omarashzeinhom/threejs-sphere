@@ -13,9 +13,9 @@ function App() {
   const scene = new THREE.Scene();
 
   // Geometry
-  const geometry = new THREE.SphereGeometry(3, 64, 64);
+  const geometry = new THREE.TorusGeometry(14 ,3, 30, 50,7);
   // Color
-  const material = new THREE.MeshStandardMaterial({ color: 0xFF9900, 
+  const material = new THREE.MeshStandardMaterial({ color: 0xFFFFF, 
   roughness: 0.3, });
   // Mesh
   const mesh = new THREE.Mesh(geometry, material);
@@ -25,7 +25,7 @@ function App() {
 
   // LIGHT
   const light = new THREE.PointLight(0xffffff, 1, 100);
-  light.position.set(0, 10, 10);
+  light.position.set(1, 50, 52);
   light.intensity = 1.5;
   scene.add(light);
   //2. Setting up a Camera
@@ -36,7 +36,7 @@ function App() {
     0.1,
     100
   );
-  camera.position.z = 20;
+  camera.position.z = 40;
   scene.add(camera);
 
   // Renderer
