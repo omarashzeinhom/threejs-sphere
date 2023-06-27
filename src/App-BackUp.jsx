@@ -9,6 +9,13 @@ function App() {
     height: window.innerHeight,
   };
 
+  /* Setup Scene Start  */
+
+  /* 1. SETTING UP A SCENE 
+  geometry , material , and mesh.
+  */
+
+  // DEFINE A SCENE
   const scene = new THREE.Scene();
 
   // Geometry
@@ -18,30 +25,52 @@ function App() {
   // Mesh
   const mesh = new THREE.Mesh(geometry, material);
 
+  // ADD MESH TO SCENE
   scene.add(mesh);
 
   //2. Setting up a Camera
-
+  /* Parameters
+  PerspectiveCamera(
+    fov: //field of view in radians
+    aspect: //aspect ratio
+    )
+  */
+  // DEFINE CAMERA
   const camera = new THREE.PerspectiveCamera(
     45,
     sizes.width / sizes.height,
     0.1,
     100
   );
+  // CHANGE camera position because the default position is the same as the canvas so they are top of each other
+  // SET POSITION OF CAMERA
   camera.position.z = 20;
+  // ADD CAMERA TO SCENE
   scene.add(camera);
 
   // LIGHT
+  // DEFINE LIGHT
   const light = new THREE.PointLight(0xffffff, 1, 100);
+  // SET POSITION OF Light
   light.position.set(0, 10, 10);
+  // ADD LIGHT TO SCENE
   scene.add(light);
+
+  /* Setup Scene End  */
+
+  /* Render  Scene Start   */
 
   // Renderer
   const canvas = document.querySelector(".webgl");
   const renderer = new THREE.WebGLRenderer({ canvas });
+
+  // DEFINE Canvas Size
   renderer.setSize(sizes.width, sizes.height);
-  renderer.setPixelRatio(2);
+
+  // Render Scene
   renderer.render(scene, camera);
+
+  /* Render  Scene  End  */
 
   // RESIZE
   window.addEventListener("resize", () => {
@@ -54,36 +83,19 @@ function App() {
     renderer.setSize(sizes.width, sizes.height);
   });
 
-  // CONTROLS
-
-  const controls = new OrbitControls(camera, canvas);
-  controls.enableDamping = true;
-  controls.enablePan = false;
-  controls.enableZoom = false;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 5;
-
   // Loop to
   const loop = () => {
-    controls.update();
     renderer.render(scene, camera);
     window.requestAnimationFrame(loop);
   };
   loop();
 
-  return (
-    <>
-      <nav>
-        <a href="/">Sphere</a>
+  // CONTROLS
 
-        <ul>
-          <li>Explore</li>
-          <li>Create</li>
-        </ul>
-      </nav>
-      <h1 className="title">Give it A Spin</h1>
-    </>
-  );
+  const controls = new OrbitControls(camera, canvas);
+  controls;
+
+  return <></>;
 }
 
 export default App;
